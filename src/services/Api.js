@@ -15,3 +15,37 @@ const rails = axios.create({
       };
   };
 
+//* Auth API
+const signup = (data) => {
+    return fetch(`${BACKEND_URL}/users`, {
+        method: 'POST',
+        headers: headers(),
+        body: JSON.stringify({
+            user: data
+        }),
+    }).then((res) => res.json());
+}
+
+const login = (data) => {
+    return fetch(`${BACKEND_URL}/login`, {
+        method: 'POST',
+        headers: headders(),
+        body: JSON.stringify(data),
+    }).then((res) => res.json())
+};
+
+const getCurrentUser = () => {
+    console.log(token());
+    return fetch(`${BACKEND_URL}/profile`, {
+        headers: headers(),
+    }).then((res) => res.json());
+};
+
+export const api = {
+    auth: {
+        signup,
+        login,
+        getCurrentUser,
+    },
+    rails,
+}
