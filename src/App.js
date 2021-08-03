@@ -62,8 +62,20 @@ const App = () => {
           <Signup routerProps={routerProps} onSignup={onSignup}/>
         )}
         />
+        <Route 
+        path="/login"
+        render={(routerProps) => (
+          <Login routerProps={routerProps} onLogin={onLogin}/>
+        )}
+        />
+         <>
+         <Container fluid>
+          <div className="routes-container">
+          </div>
+         </Container>
+         </>
       </Switch>
-    </>
+   </>
   );
 };
 
