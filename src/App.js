@@ -3,9 +3,11 @@ import { Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Container } from "react-bootstrap";
 import { api } from "./services/Api";
+import {setAuth} from '../src/actions/userAction'
 
 import Signup from '../src/Signup';
 import Login from '../src/Login';
+
 
 const App = () => {
   const [auth, setAuth] = useState({ user: {} });
@@ -83,4 +85,8 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {user: state.auth}
+}
+
+export default connect(mapStateToProps, {setAuth})(App);
