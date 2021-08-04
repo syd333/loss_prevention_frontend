@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
+import { connect } from 'react-redux';
 import { Container } from "react-bootstrap";
 import { api } from "./services/Api";
+
+import Signup from '../src/Signup';
+import Login from '../src/Login';
 
 const App = () => {
   const [auth, setAuth] = useState({ user: {} });

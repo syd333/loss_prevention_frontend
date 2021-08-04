@@ -29,7 +29,7 @@ const signup = (data) => {
 const login = (data) => {
     return fetch(`${BACKEND_URL}/login`, {
         method: 'POST',
-        headers: headders(),
+        headers: headers(),
         body: JSON.stringify(data),
     }).then((res) => res.json())
 };
