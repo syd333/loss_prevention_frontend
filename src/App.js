@@ -8,6 +8,7 @@ import {setAuth} from '../src/actions/userAction';
 import Homepage from '../src/Homepage';
 import Signup from '../src/Signup';
 import Login from '../src/Login';
+import NavBar from '../src/NavBar';
 
 
 const App = ({user, setAuth}) => {
@@ -62,16 +63,17 @@ const App = ({user, setAuth}) => {
   return (
     <div className="app">
       <Router>
+        <NavBar />
       <Switch>
         <Route exact path='/' render={() => <Homepage/>} />
         <Route
-        path="/signup"
+        path='/signup'
         render={(routerProps) => (
           <Signup routerProps={routerProps}/>
         )}
         />
         <Route 
-        path="/login"
+        path='/login'
         render={(routerProps) => (
           <Login routerProps={routerProps}/>
         )}

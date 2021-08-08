@@ -17,7 +17,7 @@ const rails = axios.create({
 
 //* Auth API
 const signup = (data) => {
-    return fetch(`${BACKEND_URL}/users`, {
+    return fetch(`${BACKEND_URL}/signup`, {
         method: 'POST',
         headers: headers(),
         body: JSON.stringify({
@@ -36,7 +36,7 @@ const login = (data) => {
 
 const getCurrentUser = () => {
     console.log(token());
-    return fetch(`${BACKEND_URL}/profile`, {
+    return fetch(`${BACKEND_URL}/getuser`, {
         headers: headers(),
     }).then((res) => res.json());
 };
