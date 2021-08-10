@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Container } from "react-bootstrap";
+import "semantic-ui-css/semantic.min.css";
 import { api } from "./services/Api";
 import {setAuth} from '../src/actions/userAction';
 
-import Homepage from '../src/Homepage';
-import Signup from '../src/Signup';
-import Login from '../src/Login';
-import NavBar from '../src/NavBar';
+import Homepage from './components/Homepage';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import NavBar from './components/NavBar';
 
 
 const App = ({user, setAuth}) => {
@@ -65,25 +66,9 @@ const App = ({user, setAuth}) => {
       <Router>
         <NavBar />
       <Switch>
-        <Route exact path='/' render={() => <Homepage/>} />
-        <Route
-        path='/signup'
-        render={(routerProps) => (
-          <Signup routerProps={routerProps}/>
-        )}
-        />
-        <Route 
-        path='/login'
-        render={(routerProps) => (
-          <Login routerProps={routerProps}/>
-        )}
-        />
-         <>
-         <Container fluid>
-          <div className="routes-container">
-          </div>
-         </Container>
-         </>
+        <Route exact path="/" render={() => <Homepage/>} />
+        <Route path="/signup" exact component={Signup}/>
+        <Route path="/login" exact component={Login}/>
       </Switch>
       </Router>
    </div>

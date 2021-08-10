@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import api from "../src/services/Api";
+import api from "../services/Api";
 import { Form, Row, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 
-import { setAuth } from "./actions/userAction";
+import { setAuth } from "../actions/userAction";
 
 const Login = ({ routerProps }) => {
     return (
