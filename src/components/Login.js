@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
 import api from "../services/Api";
-import { Form, Row, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-
+git
 import { setAuth } from "../actions/userAction";
 
 const Login = ({ routerProps }) => {
@@ -80,4 +79,8 @@ const Login = ({ routerProps }) => {
 //   );
 };
 
-export default connect({setAuth})(Login);
+const mapStateToProps = (state) => {
+    return {};
+  };
+
+export default connect(mapStateToProps, {setAuth})(Login);
