@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 
 const Signup = () => {
@@ -9,4 +10,8 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+const mapStateToProps = state => {
+    return {}
+}
+
+export default connect(mapStateToProps)(Signup);
