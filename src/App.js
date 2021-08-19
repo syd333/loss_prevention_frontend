@@ -68,7 +68,12 @@ const App = ({user, setAuth}) => {
       <Switch>
         <Route exact path="/" render={() => <Homepage/>} />
         <Route path="/signup" exact component={Signup}/>
-        <Route path="/login" exact component={Login}/>
+        <Route
+						path='/login'
+						render={(routerProps) => (
+							<Login routerProps={routerProps} />
+						)}
+					/>
       </Switch>
       </Router>
    </div>

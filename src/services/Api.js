@@ -48,4 +48,4 @@ export const api = {
         getCurrentUser,
     },
     rails,
-}
+};

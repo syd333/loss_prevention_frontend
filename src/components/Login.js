@@ -1,86 +1,74 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import api from "../services/Api";
-import { Link } from 'react-router-dom';
-git
+import { Link } from "react-router-dom";
 import { setAuth } from "../actions/userAction";
+import { Form, Input, TextArea, Button, Select } from "semantic-ui-react";
+import * as yup from "yup";
 
-const Login = ({ routerProps }) => {
+const signupSchema = yup.object().shape({
+  email_address: yup
+    .string()
+    .email("Please enter a valid email")
+    .required("Email cannot be blank"),
+  password: yup
+    .string()
+    .min(4, "Password must be 4 characters or more")
+    .max(16, "Password must be 16 characters or less")
+    .required("Password cannot be blank"),
+});
+
+class Login extends React.Component {
+  state = {
+    email: "",
+    password: "",
+  };
+  handleUsername = (data) => this.setState({ username: data });
+  handlePassword = (data) => this.setState({ password: data });
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    // api.auth.login(userData)
+    //     .then(res => onLogin(res, routerProps))
+  };
+  //   const res = api.auth.login(userData)
+  //   if (res.jwt) {
+  //     localStorage.setItem('token', res.jwt);
+  //     setAuth(res);
+  render() {
     return (
-        <div className="login">
-            login page 
-        </div>
-    )
-
-//   const onFormSubmit = (e) => {
-//     e.preventDefault();
-//     const newUser = {
-//       email,
-//       password,
-//     };
-//     api.auth.login(newUser).then((res) => onLogin(res, routerProps));
-//   };
-//   return (
-//     <>
-//       <div className="container pt-5">
-//         <Form onSubmit={onFormSubmit}>
-//           <Row className="justify-content-center align-items-center">
-//             <div className="col-10 col-md-5 my-3">
-//               <input
-//                 type="text"
-//                 className="form-control"
-//                 name="email"
-//                 placeholder="Email Address"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//               />
-//             </div>
-//           </Row>
-//           <Row className="justify-content-center align-items-center">
-//             <div className="col-10 col-md-5 my-3">
-//               <input
-//                 type="text"
-//                 className="form-control"
-//                 name="password"
-//                 placeholder="Password"
-//                 value={password}
-//                 onChange={(e) => setPassword(e.target.value)}
-//               />
-//             </div>
-//           </Row>
-//           <Row className="justify-content-center align-items-center">
-//             <Button
-//               variant="info"
-//               size="lg"
-//               block
-//               style={{ borderRadius: "8px" }}
-//               className="col-5 col-sm-4 col-lg-2 mt-4 mb-3"
-//               type="submit"
-//             >
-//               Login
-//             </Button>
-//           </Row>
-//           <Row className="justify-content-center align-items-center">
-//             <Link to="/signup" className="item">
-//               <Button
-//                 variant="info"
-//                 size="lg"
-//                 block
-//                 style={{ borderRadius: "8px" }}
-//                 className="col-5 col-sm-4 col-lg-2 mt-4 mb-3"
-//               >
-//                 Sign Up
-//               </Button>
-//             </Link>
-//           </Row>
-//         </Form>
-    //   </div>
-    // </>
-//   );
-};
+      <div className="login">
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group widths="equal">
+            <Form.Field
+              id="form-input-control-username"
+              control={Input}
+              label="username"
+              placeholder="username"
+              onChange={(e) => this.handleUsername(e.target.value)}
+            />
+            <Form.Field
+              id="form-input-control-password"
+              control={Input}
+              label="password"
+              placeholder="password"
+              onChange={(e) => this.handlePassword(e.target.value)}
+            />
+            <Form.Field
+              id="form-button-control-public"
+              control={Button}
+              content="Confirm"
+              label="enter"
+            />
+          </Form.Group>
+        </Form>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
-    return {};
-  };
+  return {};
+};
 
-export default connect(mapStateToProps, {setAuth})(Login);
+export default connect(mapStateToProps, { setAuth })(Login);
