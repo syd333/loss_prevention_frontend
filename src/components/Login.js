@@ -1,58 +1,60 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
-import api from "../services/Api";
+import api from '../services/Api';
 import { Link } from "react-router-dom";
 import { setAuth } from "../actions/userAction";
+import { useForm } from "react-hook-form";
 import { Form, Input, TextArea, Button, Select } from "semantic-ui-react";
-import * as yup from "yup";
 
-const signupSchema = yup.object().shape({
-  email_address: yup
-    .string()
-    .email("Please enter a valid email")
-    .required("Email cannot be blank"),
-  password: yup
-    .string()
-    .min(4, "Password must be 4 characters or more")
-    .max(16, "Password must be 16 characters or less")
-    .required("Password cannot be blank"),
-});
+const Login = ({onLogin, routerProps}) => {
 
-class Login extends React.Component {
-  state = {
-    email: "",
-    password: "",
-  };
-  handleUsername = (data) => this.setState({ username: data });
-  handlePassword = (data) => this.setState({ password: data });
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-  handleSubmit = (e) => {
+    const { isLoggedIn } = useSelector(state => state.auth);
+
+    const dispatch = useDispatch();
+
+    const onChangeUsername = (e) => {
+        const username = e.target.value;
+        setUsername(username);
+    };
+
+    const onChangePassword = (e) => {
+        const password = e.target.value;
+        setPassword(password);
+    }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // api.auth.login(userData)
-    //     .then(res => onLogin(res, routerProps))
+    dispatch(setAuth(username, password))
+        .then(() => {
+            this.props.history.push('/profile');
+            window.location.reload();
+        })
   };
   //   const res = api.auth.login(userData)
   //   if (res.jwt) {
   //     localStorage.setItem('token', res.jwt);
   //     setAuth(res);
-  render() {
     return (
       <div className="login">
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Form.Group widths="equal">
             <Form.Field
               id="form-input-control-username"
               control={Input}
               label="username"
               placeholder="username"
-              onChange={(e) => this.handleUsername(e.target.value)}
+              onChange={onChangeUsername}
             />
             <Form.Field
               id="form-input-control-password"
               control={Input}
               label="password"
               placeholder="password"
-              onChange={(e) => this.handlePassword(e.target.value)}
+              onChange={onChangePassword}
             />
             <Form.Field
               id="form-button-control-public"
@@ -65,7 +67,6 @@ class Login extends React.Component {
       </div>
     );
   }
-}
 
 const mapStateToProps = (state) => {
   return {};

@@ -10,6 +10,7 @@ import Homepage from './components/Homepage';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
+import Profile from "./components/Profile";
 
 
 const App = ({user, setAuth}) => {
@@ -71,9 +72,12 @@ const App = ({user, setAuth}) => {
         <Route
 						path='/login'
 						render={(routerProps) => (
-							<Login routerProps={routerProps} />
+							<Login 
+              // onLogin={onLogin}
+              routerProps={routerProps} />
 						)}
 					/>
+          <Route exact path="/profile" render={() => <Profile/>} />
       </Switch>
       </Router>
    </div>
