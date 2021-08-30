@@ -34,6 +34,7 @@ const login = (data) => {
     }).then((res) => res.json())
 };
 
+// change to '/profile'?
 const getCurrentUser = () => {
     console.log(token());
     return fetch(`${BACKEND_URL}/getuser`, {
@@ -42,12 +43,12 @@ const getCurrentUser = () => {
 };
 
 export const api = {
+    rails,
     auth: {
         signup,
         login,
         getCurrentUser,
-    },
-    rails,
+    }
 };
 
 export default api;
