@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
 import api from "../services/Api";
 import { Link } from "react-router-dom";
@@ -11,9 +11,9 @@ const Login = ({ routerProps }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  // const { isLoggedIn } = useSelector((state) => state.auth);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onChangeUsername = (e) => {
     const username = e.target.value;

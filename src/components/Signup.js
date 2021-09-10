@@ -10,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -42,7 +42,7 @@ const Signup = () => {
     // }
     setSuccessful(false);
     // dispatch action type
-    dispatch();
+    // dispatch();
   };
 
   return (
