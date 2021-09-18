@@ -29,51 +29,57 @@ const App = ({user, setAuth}) => {
     }
   }, [setAuth]);
 
-  // const onLogin = (data, routerProps) => {
-  //   if (data.jwt) {
-  //     console.log("successfully logged in!");
-  //     localStorage.setItem("token", data.jwt);
-  //     setAuth({
-  //       user: {
-  //         id: data.user.id,
-  //         username: data.user.username,
-  //       },
-  //     });
-  //   }
-  // };
+  const onLogin = (data, routerProps) => {
+    if (data.jwt) {
+      console.log("successfully logged in!");
+      localStorage.setItem("token", data.jwt);
+      setAuth({
+        user: {
+          id: data.user.id,
+          username: data.user.username,
+        },
+      });
+      routerProps.history.push("/homepage");
+    }
+  };
 
-  // const onSignup = (data, routerProps) => {
-  //   if (data.jwt) {
-  //     console.log("successfully signed up");
-  //     localStorage.setItem("token", data.jwt);
-  //     setAuth({
-  //       user: {
-  //         id: data.id,
-  //         email: data.email,
-  //       },
-  //     });
-  //   }
-  // };
+  const onSignup = (data, routerProps) => {
+    if (data.jwt) {
+      console.log("successfully signed up");
+      localStorage.setItem("token", data.jwt);
+      setAuth({
+        user: {
+          id: data.id,
+          email: data.email,
+          bio: data.bio,
+        },
+      });
+    }
+  };
 
-  // const onLogout = () => {
-  //   localStorage.removeItem("token");
-  //   setAuth({ ...auth, user: {} });
-  //   window.history.pushState({}, "", "/login");
-  //   window.location.reload();
-  // };
+  const onLogout = () => {
+    localStorage.removeItem("token");
+    setAuth({ });
+    window.history.pushState({}, "", "/login");
+    window.location.reload();
+  };
 
   return (
     <div className="app">
       <Router>
-        <NavBar />
+        <NavBar onLogout={onLogout}/>
       <Switch>
         <Route exact path="/" render={() => <Homepage/>} />
-        <Route path="/signup" exact component={Signup}/>
+        <Route path="/signup" render={(routerProps) => (
+          <Signup onSignup={onSignup}
+          routerProps={routerProps}
+          />
+          )}/>
         <Route
 						path='/login'
 						render={(routerProps) => (
 							<Login 
-              // onLogin={onLogin}
+              onLogin={onLogin}
               routerProps={routerProps} />
 						)}
 					/>

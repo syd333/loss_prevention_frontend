@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
-import { useDispatch, useSelector, connect } from "react-redux";
+import { useForm } from "react-hook-form";
 import api from "../services/Api";
 import { Form, Input, TextArea, Button, Select } from "semantic-ui-react";
 
-const Signup = () => {
+const Signup = ({onSignup, routerProps}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
@@ -15,6 +15,7 @@ const Signup = () => {
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
+    console.log(username)
   };
 
   const onChangeEmail = (e) => {
@@ -32,8 +33,17 @@ const Signup = () => {
     setPassword(password);
   };
 
-  const handleSignup = (e, data) => {
+  const handleSubmit = (e, username, email, bio, password) => {
     e.preventDefault();
+  
+    const newUser = {
+      username: username,
+      email: email,
+      bio: bio,
+      password: password
+    }
+    console.log(newUser)
+    api.auth.signup(newUser).then(res => onSignup(res, routerProps))
     // const res = api.auth.signup(username, email, bio, password);
     // if (res.jwt) {
     //     console.log("successfully logged in!");
@@ -41,13 +51,11 @@ const Signup = () => {
     //   setAuth(res);
     // }
     setSuccessful(false);
-    // dispatch action type
-    // dispatch();
   };
 
   return (
     <div className="signup">
-      <Form onSubmit={handleSignup}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group widths="equal">
           <Form.Field
             id="form-input-control-username"
@@ -89,8 +97,5 @@ const Signup = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {};
-};
 
-export default connect(mapStateToProps)(Signup);
+export default Signup;

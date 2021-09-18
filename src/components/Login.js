@@ -70,8 +70,8 @@ const Login = ({ routerProps }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {};
-};
+// const mapStateToProps = (state) => {
+//   return {};
+// };
 
-export default connect(mapStateToProps, { setAuth })(Login);
+export default Login;

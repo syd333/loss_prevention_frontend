@@ -32,8 +32,8 @@ const NavBar = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {};
-};
+// const mapStateToProps = (state) => {
+//   return {};
+// };
 
-export default connect(mapStateToProps)(NavBar);
+export default NavBar;
