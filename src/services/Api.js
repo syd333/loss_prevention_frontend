@@ -37,7 +37,7 @@ const login = (data) => {
 // change to '/profile'?
 const getCurrentUser = () => {
     console.log(token());
-    return fetch(`${BACKEND_URL}/getuser`, {
+    return fetch(`${BACKEND_URL}/profile`, {
         headers: headers(),
     }).then((res) => res.json());
 };
