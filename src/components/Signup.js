@@ -4,43 +4,42 @@ import api from "../services/Api";
 import { Form, Input, TextArea, Button, Select } from "semantic-ui-react";
 
 const Signup = ({onSignup, routerProps}) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [bio, setBio] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, formState: {errors}, handleSubmit} = useForm();
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [bio, setBio] = useState("");
+  // const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
 
   // const dispatch = useDispatch();
 
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-    console.log(username)
-  };
+  // const onChangeUsername = (e) => {
+  //   const username = e.target.value;
+  //   setUsername(username);
+  //   console.log(username)
+  // };
 
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
+  // const onChangeEmail = (e) => {
+  //   const email = e.target.value;
+  //   setEmail(email);
+  // };
 
-  const onChangeBio = (e) => {
-    const bio = e.target.value;
-    setBio(bio);
-  };
+  // const onChangeBio = (e) => {
+  //   const bio = e.target.value;
+  //   setBio(bio);
+  // };
 
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
+  // const onChangePassword = (e) => {
+  //   const password = e.target.value;
+  //   setPassword(password);
+  // };
 
-  const handleSubmit = (e, username, email, bio, password) => {
-    e.preventDefault();
-  
+  const onSubmit = (data) => {
     const newUser = {
-      username: username,
-      email: email,
-      bio: bio,
-      password: password
+      username: data.username,
+      email: data.email,
+      bio: data.bio,
+      password: data.password
     }
     console.log(newUser)
     api.auth.signup(newUser).then(res => onSignup(res, routerProps))
@@ -55,41 +54,48 @@ const Signup = ({onSignup, routerProps}) => {
 
   return (
     <div className="signup">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group widths="equal">
           <Form.Field
             id="form-input-control-username"
             control={Input}
-            label="username"
+            label ="username"
+            name="username"
             placeholder="username"
-            onChange={onChangeUsername}
+            {...register("username")}
           />
           <Form.Field
-            id="form-input-control-username"
+            id="form-input-control-email"
             control={Input}
             label="email"
             placeholder="email"
-            onChange={onChangeEmail}
+            {...register("email")}
+            name="email"
+            // onChange={onChangeEmail}
           />
           <Form.Field
-            id="form-input-control-username"
+            id="form-input-control-bio"
             control={Input}
             label="bio"
             placeholder="bio"
-            onChange={onChangeBio}
+            {...register("bio")}
+            name="bio"
+            // onChange={onChangeBio}
           />
           <Form.Field
             id="form-input-control-password"
             control={Input}
             label="password"
             placeholder="password"
-            onChange={onChangePassword}
+            {...register("password")}
+            name="password"
+            // onChange={onChangePassword}
           />
           <Form.Field
             id="form-button-control-public"
             control={Button}
-            content="Confirm"
-            label="enter"
+            content="submit"
+            label="submit"
           />
         </Form.Group>
       </Form>

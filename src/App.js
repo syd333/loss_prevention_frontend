@@ -54,6 +54,7 @@ const App = ({user, setAuth}) => {
           bio: data.bio,
         },
       });
+      routerProps.history.push("/homepage");
     }
   };
 
