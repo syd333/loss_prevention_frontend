@@ -1,38 +1,37 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import api from "../services/Api";
 import { Form, Input, TextArea, Button, Select } from "semantic-ui-react";
 
+const signupSchema = yup.object().shape({
+  username: yup
+  .string()
+  .min(3, 'Username must be 3 characters or more')
+  .max(10, 'Username must be 10 characters or less')
+  .required('Username cannot be blank'),
+  email: yup
+  .string()
+  .email('Please enter a valid email')
+  .required('Email cannot be blank'),
+  bio: yup
+  .string()
+  .min(33, 'Bio must be 33 characters or more')
+  .max(260, 'Bio must be 160 characters or less')
+  .required('Bio cannot be blank'),
+  password: yup
+		.string()
+		.min(4, 'Password must be 4 characters or more')
+		.max(16, 'Password must be 16 characters or less')
+		.required('Password cannot be blank'),
+});
+
 const Signup = ({onSignup, routerProps}) => {
-  const { register, formState: {errors}, handleSubmit} = useForm();
-  // const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [bio, setBio] = useState("");
-  // const [password, setPassword] = useState("");
+  const { register, formState: {errors}, handleSubmit} = useForm({
+    resolver: yupResolver(signupSchema)
+  });
   const [successful, setSuccessful] = useState(false);
-
-  // const dispatch = useDispatch();
-
-  // const onChangeUsername = (e) => {
-  //   const username = e.target.value;
-  //   setUsername(username);
-  //   console.log(username)
-  // };
-
-  // const onChangeEmail = (e) => {
-  //   const email = e.target.value;
-  //   setEmail(email);
-  // };
-
-  // const onChangeBio = (e) => {
-  //   const bio = e.target.value;
-  //   setBio(bio);
-  // };
-
-  // const onChangePassword = (e) => {
-  //   const password = e.target.value;
-  //   setPassword(password);
-  // };
 
   const onSubmit = (data) => {
     const newUser = {
@@ -43,12 +42,6 @@ const Signup = ({onSignup, routerProps}) => {
     }
     console.log(newUser)
     api.auth.signup(newUser).then(res => onSignup(res, routerProps))
-    // const res = api.auth.signup(username, email, bio, password);
-    // if (res.jwt) {
-    //     console.log("successfully logged in!");
-    //   localStorage.setItem("token", res.jwt);
-    //   setAuth(res);
-    // }
     setSuccessful(false);
   };
 
@@ -71,16 +64,14 @@ const Signup = ({onSignup, routerProps}) => {
             placeholder="email"
             {...register("email")}
             name="email"
-            // onChange={onChangeEmail}
           />
           <Form.Field
             id="form-input-control-bio"
-            control={Input}
+            control={TextArea}
             label="bio"
             placeholder="bio"
             {...register("bio")}
             name="bio"
-            // onChange={onChangeBio}
           />
           <Form.Field
             id="form-input-control-password"
@@ -89,7 +80,6 @@ const Signup = ({onSignup, routerProps}) => {
             placeholder="password"
             {...register("password")}
             name="password"
-            // onChange={onChangePassword}
           />
           <Form.Field
             id="form-button-control-public"
