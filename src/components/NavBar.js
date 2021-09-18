@@ -27,6 +27,11 @@ const NavBar = () => {
             signup
           </Link>
         </Menu.Item>
+        <Menu.Item>
+          <Link to="/logout" className="item">
+            logout
+          </Link>
+        </Menu.Item>
       </Menu>
     </div>
   );
